@@ -6,7 +6,7 @@ Note: this is my first time writing Ruby
 ## Usage
 The simplest usage of the `langstats` app would be:
 
-```sh
+```
 $ ruby bin/langstats_cli.rb -o skroutz
 ```
 
@@ -14,13 +14,13 @@ This produces an unauthenticated request to GitHub and, as a result, could suffe
 
 Alternatively, the authenticated version using one's GitHub credentials would be:
 
-```sh
+```
 $ ruby bin/langstats_cli.rb -o skroutz -u papiomytoglou:totallymypassword
 ```
 
 The help is produced using the `-h` switch:
 
-```sh
+```
 $ ruby bin/langstats_cli.rb -h
 Usage: langstats_cli.rb -o ORGANIZATION [-u USER[:PASSWORD]]
     -o, --organization ORGANIZATION  The name of the organization
@@ -29,7 +29,7 @@ Usage: langstats_cli.rb -o ORGANIZATION [-u USER[:PASSWORD]]
 ```
 Finally, the `rspec` tool is needed in order to run the tests found in the `spec` directory. E.g.:
 
-```sh
+```
 $ rspec spec/http_data_source_spec.rb 
 .....
 
