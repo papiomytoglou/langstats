@@ -9,7 +9,7 @@ class LangstatsCLI
     options = {}
 
     OptParse.new do |parser|
-      parser.banner = "Usage: cli_controller.rb -o ORGANIZATION [-u USER[:PASSWORD]]"
+      parser.banner = "Usage: langstats_cli.rb -o ORGANIZATION [-u USER[:PASSWORD]]"
 
       parser.on("-o", "--organization ORGANIZATION", "The name of the organization") do |v|
         options[:organization] = v
