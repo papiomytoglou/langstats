@@ -2,7 +2,7 @@ require 'optparse'
 require_relative "../lib/http_data_source"
 require_relative "../lib/langstats_facade"
 
-class LangstatsCli
+class LangstatsCLI
   private
 
   def self.parse_cli_args
@@ -32,17 +32,27 @@ class LangstatsCli
     options
   end
 
-  def self.pretty_print_langstats(langstats_hash)
-    sorted_array = langstats_hash.to_a.sort do |lang_stat_a, lang_stat_b|
+  def self.sort_lang_stats(langstats_hash)
+    langstats_hash.to_a.sort do |lang_stat_a, lang_stat_b|
       lang_stat_b[1] <=> lang_stat_a[1]
     end
-    sorted_array.each do |lang_stat|
-      puts lang_stat[0] + ": " + lang_stat[1].round(2).to_s + "%"
+  end
+
+  def self.produce_json(organization, langstats_hash)
+    string_buffer = "{\n\s\s\"organization\": " + organization + ",\n"
+    string_buffer << "\s\s\"languages\": {"
+    langstats_hash.each do |lang_stat|
+      string_buffer << "\n\s\s\s\s\"" + lang_stat[0] + "\": " + lang_stat[1].round(2).to_s + ","
     end
+    string_buffer = string_buffer.chop
+    string_buffer << "\n\s\s}"
+    string_buffer << "\n}"
+    puts string_buffer
   end
 
   def self.main
     options = parse_cli_args
+    organization = options[:organization]
     if options[:user]
       user_args = options[:user].split(':')
       username = user_args[0]
@@ -50,8 +60,9 @@ class LangstatsCli
     end
 
     facade = LangstatsFacade.new(HTTPDataSource.new)
-    lang_stats = facade.get_lang_stats(options[:organization], username, password)
-    pretty_print_langstats(lang_stats)
+    lang_stats = facade.get_lang_stats(organization, username, password)
+    sorted_lang_stats = sort_lang_stats(lang_stats)
+    produce_json(organization, sorted_lang_stats)
   end
 
   begin
