@@ -1,5 +1,5 @@
 # langstats
-An implementation of the Skroutz software engineering assignment.
+A tool for retrieving language statistics from GitHub
 
 Note: this is my first time writing Ruby
 
@@ -7,7 +7,7 @@ Note: this is my first time writing Ruby
 The simplest usage of the `langstats` app would be:
 
 ```
-$ ruby bin/langstats_cli.rb -o skroutz
+$ ruby bin/langstats_cli.rb -o google
 ```
 
 This produces an unauthenticated request to GitHub and, as a result, could suffer from GitHub's [limit in API calls](https://developer.github.com/v3/#rate-limiting).
@@ -15,7 +15,7 @@ This produces an unauthenticated request to GitHub and, as a result, could suffe
 Alternatively, the authenticated version using one's GitHub credentials would be:
 
 ```
-$ ruby bin/langstats_cli.rb -o skroutz -u papiomytoglou:totallymypassword
+$ ruby bin/langstats_cli.rb -o google -u papiomytoglou:totallymypassword
 ```
 
 The help is produced using the `-h` switch:
